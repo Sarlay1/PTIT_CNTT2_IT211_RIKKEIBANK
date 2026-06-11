@@ -1,7 +1,7 @@
 package com.example.rikkeibank.entity;
 
 public enum KycStatus {
-    PENDING,
-    CONFIRM,
-    REJECT
+    PENDING,    // Chờ phê duyệt
+    APPROVED,   // Đã duyệt
+    REJECTED    // Bị từ chối
 }

@@ -1,21 +1,24 @@
 package com.example.rikkeibank.dto;
 
 import com.example.rikkeibank.entity.Role;
-import lombok.*;
+import com.example.rikkeibank.entity.UserStatus;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import java.time.LocalDateTime;
+
+@Data
+@Builder
 public class UserResponse {
-
     private Long id;
-
-    private String fullName;
-
+    private String username;
     private String email;
-
-    private String phone;
-
+    private String fullName;
+    private String phoneNumber;
+    private String address;
+    private String nationalId;
+    private UserStatus status;
     private Role role;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

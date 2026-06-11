@@ -10,8 +10,8 @@ import lombok.*;
 public class RegisterResponse {
 
     private Long id;
-
+    private String phoneNumber;
     private String fullName;
-
+    private String username;
     private String email;
 }
