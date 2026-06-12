@@ -10,6 +10,8 @@ import lombok.*;
 @AllArgsConstructor
 public class ChangePinRequest {
 
+    private String username;
+
     @NotBlank(message = "Old pin is required")
     private String oldPin;
 

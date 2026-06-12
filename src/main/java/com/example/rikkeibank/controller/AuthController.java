@@ -6,6 +6,8 @@ import com.example.rikkeibank.dto.request.RefreshTokenRequest;
 import com.example.rikkeibank.dto.respone.ApiResponse;
 import com.example.rikkeibank.dto.respone.LoginResponse;
 import com.example.rikkeibank.service.AuthService;
+import com.example.rikkeibank.dto.request.ChangePinRequest;
+import com.example.rikkeibank.dto.request.ForgotPasswordRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +51,32 @@ public class AuthController {
                 .success(true)
                 .message("Logout successful")
                 .data("Token revoked")
+                .build();
+    }
+    @PostMapping("/change-pin")
+    public ApiResponse<String> changePin(
+            @RequestBody ChangePinRequest request
+    ) {
+
+        authService.changePin(request);
+
+        return ApiResponse.<String>builder()
+                .success(true)
+                .message("PIN changed")
+                .data("Success")
+                .build();
+    }
+    @PostMapping("/forgot-password")
+    public ApiResponse<String> forgotPassword(
+            @RequestBody ForgotPasswordRequest request
+    ) {
+
+        authService.forgotPassword(request);
+
+        return ApiResponse.<String>builder()
+                .success(true)
+                .message("Password reset")
+                .data("Success")
                 .build();
     }
 }

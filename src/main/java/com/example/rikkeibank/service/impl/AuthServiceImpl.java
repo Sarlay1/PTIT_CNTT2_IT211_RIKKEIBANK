@@ -17,6 +17,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
+import com.example.rikkeibank.dto.request.ChangePinRequest;
+import com.example.rikkeibank.dto.request.ForgotPasswordRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -24,6 +27,8 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AuthServiceImpl
         implements AuthService {
+
+    private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationManager authenticationManager;
 
@@ -137,5 +142,38 @@ public class AuthServiceImpl
         revokedTokenRepository.save(
                 revokedToken
         );
+
+    }
+    @Override
+    public void changePin(ChangePinRequest request) {
+
+        User user = userRepository
+                .findByUsername(request.getUsername())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "User not found"
+                        ));
+
+        user.setPin(request.getNewPin());
+
+        userRepository.save(user);
+    }
+    @Override
+    public void forgotPassword(
+            ForgotPasswordRequest request
+    ) {
+
+        User user = userRepository
+                .findByEmail(request.getEmail())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "User not found"
+                        ));
+
+        user.setPassword(
+                passwordEncoder.encode("123456")
+        );
+
+        userRepository.save(user);
     }
 }
