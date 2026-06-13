@@ -20,7 +20,8 @@ import org.springframework.stereotype.Service;
 import com.example.rikkeibank.dto.request.ChangePinRequest;
 import com.example.rikkeibank.dto.request.ForgotPasswordRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import com.example.rikkeibank.dto.request.RegisterRequest;
+import com.example.rikkeibank.enums.Role;
 import java.time.LocalDateTime;
 
 @Service
@@ -173,6 +174,34 @@ public class AuthServiceImpl
         user.setPassword(
                 passwordEncoder.encode("123456")
         );
+
+        userRepository.save(user);
+    }
+    @Override
+    public void register(RegisterRequest request) {
+
+        if (userRepository.findByUsername(
+                request.getUsername()
+        ).isPresent()) {
+
+            throw new RuntimeException(
+                    "Username already exists"
+            );
+        }
+
+        User user = User.builder()
+                .username(request.getUsername())
+                .password(
+                        passwordEncoder.encode(
+                                request.getPassword()
+                        )
+                )
+                .fullName(request.getFullName())
+                .email(request.getEmail())
+                .role(Role.CUSTOMER)
+                .enabled(true)
+                .isKyc(false)
+                .build();
 
         userRepository.save(user);
     }

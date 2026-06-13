@@ -8,6 +8,7 @@ import com.example.rikkeibank.dto.respone.LoginResponse;
 import com.example.rikkeibank.service.AuthService;
 import com.example.rikkeibank.dto.request.ChangePinRequest;
 import com.example.rikkeibank.dto.request.ForgotPasswordRequest;
+import com.example.rikkeibank.dto.request.RegisterRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,19 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    @PostMapping("/register")
+    public ApiResponse<String> register(
+            @Valid @RequestBody RegisterRequest request
+    ) {
+
+        authService.register(request);
+
+        return ApiResponse.<String>builder()
+                .success(true)
+                .message("Register successful")
+                .data("User created")
+                .build();
+    }
 
     @PostMapping("/login")
     public ApiResponse<LoginResponse> login(

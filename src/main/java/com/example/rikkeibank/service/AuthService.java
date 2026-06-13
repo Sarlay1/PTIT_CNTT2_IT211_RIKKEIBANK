@@ -1,10 +1,7 @@
 package com.example.rikkeibank.service;
 
-import com.example.rikkeibank.dto.request.LoginRequest;
-import com.example.rikkeibank.dto.request.RefreshTokenRequest;
+import com.example.rikkeibank.dto.request.*;
 import com.example.rikkeibank.dto.respone.LoginResponse;
-import com.example.rikkeibank.dto.request.ChangePinRequest;
-import com.example.rikkeibank.dto.request.ForgotPasswordRequest;
 
 public interface AuthService {
 
@@ -17,5 +14,6 @@ public interface AuthService {
     void changePin(ChangePinRequest request);
 
     void forgotPassword(ForgotPasswordRequest request);
+    void register(RegisterRequest request);
 
 }
